@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ol>
+            <do-mywife
+            v-for = "item in info"
+            v-bind:wife="item"
+            v-bind:key="item.id"
+            ></do-mywife>
+        </ol>
+    </div>
+    <script>
+        Vue.component('do-mywife', {
+            props: ['wife'],
+            template: '<li>{{ wife.name }}</li>'
+        })
+        let app = new Vue({
+            el:"#app",
+            data:{
+                info:[{
+                id:0,
+                name:"韩梅梅"
+            },{
+                id:1,                
+                name:"范冰冰"
+            },{
+                id:2,                
+                name:"Baby"
+            }]
+            }
+        })
+        //TODO:理解component!!!!!!!
+    </script>
+</body>
+
+</html>
