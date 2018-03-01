@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2 v-if='info.type'>聊天信息</h2>
+        <ul>
+            <li v-for="todo in info.msg">
+                {{todo.Body}} <i>{{todo.Date}}</i>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const data1 = {
+            type: true,
+            msg: [{
+                    "Type": "1",
+                    "Status": "5792",
+                    "IsRead": "1",
+                    "Address": "+861388888888",
+                    "Date": "2013-10-26 22:32:07",
+                    "Body": "嗯哪  我也睡了"
+                },
+                {
+                    "Type": "2",
+                    "Status": "5",
+                    "IsRead": "1",
+                    "Address": "+861388888888",
+                    "Date": "2013-10-26 22:19:26",
+                    "Body": "妞  睡觉咯   安."
+                },
+                {
+                    "Type": "1",
+                    "Status": "1",
+                    "IsRead": "1",
+                    "Address": "+861388888888",
+                    "Date": "2013-10-24 17:02:53",
+                    "Body": "晚上他们订饭帮我订一份  "
+                },
+                {
+                    "Type": "2",
+                    "Status": "1",
+                    "IsRead": "1",
+                    "Address": "+861388888888",
+                    "Date": "2013-10-23 22:14:09",
+                    "Body": "有功夫想打电话就打  我先m着。  累了睡了就短信。"
+                },
+                {
+                    "Type": "1",
+                    "Status": "1",
+                    "IsRead": "1",
+                    "Address": "+861388888888",
+                    "Date": "2013-10-22 23:46:01",
+                    "Body": "安。"
+                },
+            ]
+        }
+        let app = new Vue({
+            el:'#app',
+            data:{
+                info : data1,
+            }
+        })
+    </script>
+</body>
+
+</html>
