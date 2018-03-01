@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="myApp">
+        <h2>我最喜欢的人:{{info}}</h2>
+        <button v-on:click="btn('范冰冰')">范冰冰</button>
+        <button v-on:click="btn('徐若瑄')">徐若瑄</button>
+        <button @click="btn('angelababy')">angelababy</button>
+        <button @click="btn('mozlee')">MozLee</button>
+    </div>
+    <script>
+     let myApp = new Vue({
+         el:"#myApp",
+         data:{
+             info:"趁早"
+         },
+         methods:{
+             btn:function(name){
+                 this.info = name;
+             }
+         }
+     })
+    </script>
+</body>
+</html>
