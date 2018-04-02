@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>7.QQ折叠面板.html</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding-top: 69px;
+            padding-left: 40px;
+            width: 316px;
+            height: 610px;
+            background: url(./img/图层7.png);
+            margin: 0 auto;
+            overflow: scroll;
+        }
+
+        .container dl {
+            width: 280px;
+            height: auto;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .container dt,
+        dd {
+            position: relative;
+            padding: 15px;
+            padding-left: 40px;
+        }
+
+        .container dl dd {
+            background: rgba(0, 0, 0, 1)
+        }
+
+        .container dt {
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .container dt::before {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 0px;
+            border: 10px solid transparent;
+            border-left-color: #fff;
+            position: absolute;
+            left: 15px;
+            top: 16px;
+        }
+
+        .container dt::after {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 0px;
+            border: 7px solid transparent;
+            border-left-color: rgba(0, 0, 0, .8);
+            position: absolute;
+            left: 15px;
+            top: 19px;
+        }
+
+        .container .actDt::before {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 0px;
+            border: 10px solid transparent;
+            border-top-color: #fff;
+            position: absolute;
+            left: 11px;
+            top: 22px;
+        }
+
+        .container .actDt::after {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 0px;
+            border: 7px solid transparent;
+            border-top-color: rgba(221, 84, 111, .8);
+            position: absolute;
+            left: 14px;
+            top: 22px;
+        }
+
+        .container .actDt {
+            background: rgba(221, 84, 111, .8);
+        }
+
+        .container dd:hover {
+            background: #ffa500;
+        }
+        .container dl .actDD{
+            background: rgba(221, 84, 111, 1);
+        }
+    </style>
+</head>
+<script src="./vue.js"></script>
+<body>
+    <div class="container" id="app">
+        <dl v-for="item,i in qqData" :class="{actDt:qqData[i].show}">
+            <dt @click="show(i)">{{item.title}}</dt>
+            <dd v-if="qqData[i].show" v-for="qqname in item.lists">{{qqname}}</dd>
+        </dl>
+    </div>
+<script>
+let qqData = [{
+    title:'我的好友',
+    lists:['MozLee','sy1x','Leo','Lixin'],
+    show:false,
+},{
+    title:'大学同学',
+    lists:['乔布斯','比尔盖茨','扎克伯格'],
+    show:false,    
+},{
+    title:'黑名单',
+    lists:['范冰冰'],
+    show:false,    
+}]
+let vm = new Vue({
+    el:'#app',
+    data:{
+        qqData,
+        curr:-1,
+    },
+    methods:{
+        show(index){
+            let a = qqData[index];
+            a.show? a.show=false:a.show=true;
+        }
+    }
+})
+</script>
+</body>
+
+</html>
