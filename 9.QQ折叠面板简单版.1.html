@@ -114,7 +114,7 @@
             @click = 'currindex===index?currindex=-1:currindex=index' 
             :class="{actDt:currindex===index}">{{item.title}}</dt>
             <dd v-for="key in item.lists" v-show="currindex == index">
-                {{key}}
+                {{key}} ``
             </dd>
         </dl>
     </div>
