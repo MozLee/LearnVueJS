@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{itemNum}}</p>
+    </div>
+    <script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            data:[0,1,2,3,4,5,6,7]
+        },
+        computed:{
+            itemNum(){
+            //   return this.data.join('')
+            let newArr = this.data.filter(item=>{
+                if (item>4){
+                    return item;
+                }
+            })
+            return newArr.join('')
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>
