@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="../vue.js"></script>
+</head>
+
+<body>
+	<script type="text/x-template" id="modal">
+		<div class="modal">
+			<div class="modal-header">
+				<h4>{{title}}</h4>
+			</div>
+			<div class="modal-content">
+				<div>
+					{{content}}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input class="btn" type="button" value="确定" @click="confirmHandler" />
+				<input class="btn" type="button" value="取消" @click="cancelHandler" />
+			</div>
+		</div>
+	</script>
+	<div class="modal-example" id="app">
+		<div>{{finalInfo}}</div>
+		<mz-modal title="支付宝确认信息" content="支付宝到账100万元，是否收取" @confirm-click="confirmInfo"></mz-modal>
+	</div>
+	<script>
+		Vue.component('mz-modal', {
+			data() {
+				return {
+					confirm: null,
+				}
+			},
+			template: '#modal',
+			methods: {
+					confirmHandler() {
+						this.confirm = true;
+						this.$emit('confirm-click', this.confirm);
+					},
+					cancelHandler(){
+						this.confirm = false;
+						this.$emit('confirm-click', this.confirm);
+						
+					}
+				},
+			props: {
+				title: {
+					type: String,
+					default: '这里是标题'
+				},
+				content: {
+					type: String,
+					default: '在这里添加内容'
+				},
+			}
+		})
+		new Vue({
+			el: "#app",
+			data: {
+				finalConfirm: null,
+				finalInfo:''
+			},
+			methods: {
+				confirmInfo(parms) {
+					this.finalConfirm = parms;
+					console.log(parms)
+					parms?this.finalInfo='确定':this.finalInfo='取消'
+					console.log(this.finalConfirm);
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>
