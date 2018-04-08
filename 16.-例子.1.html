@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<style>
+		.tab {
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+		}
+
+		#app>div {
+			display: inline-block;
+			margin: 50px;
+		}
+
+		.active {
+			background: sandybrown;
+		}
+	</style>
+	<script src="./vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<my-tab title="一"></my-tab>
+		<my-tab title="二"></my-tab>
+		<my-tab title="三"></my-tab>
+	</div>
+	<script type="text/x-template" id="my-tab">
+		<div>
+			<h1>第{{title}}个面板</h1>
+			<div>
+				<button :style="{background:color}">改变我的颜色</button>
+				<div class="tab">
+					<ul>
+						<li :class="{active:curr===i}" v-for="item,i in tab" @click="curr=i">{{item}}</li>
+					</ul>
+					<button @click='color="";curr =-1'>取消</button>
+					<button @click='color=tab[curr];curr =-1'>确定</button>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script>
+		/*
+								1. 把class为.tab的封装成一个组件
+								2. 在封装的组件内部可以单选一个颜色
+								3. 当点击组件内的确定，分别改变button和p标签的颜色为组件内选中的颜色
+
+			*/
+		let o = {
+			tab: ['green', 'red', 'yellow'],
+			curr: -1,
+			color:''
+		}
+		Vue.component('my-tab', {
+			template: '#my-tab',
+			props: ['title'],
+			data() {
+				return {
+					...o
+				}
+			}
+		})
+		new Vue({
+			el: '#app',
+		})
+	</script>
+</body>
+
+</html>
