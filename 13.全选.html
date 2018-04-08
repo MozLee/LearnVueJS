@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #cb6083;
+        }
+
+        .container {
+            width: 480px;
+            height: 248px;
+            color: #fff;
+            margin: 20px auto;
+            border-radius: 10px;
+            border: 2px solid #000;
+        }
+
+        .top-box {
+            background: rgba(0, 0, 0, .4);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            width: 480px;
+            height: 20px;
+        }
+
+        .container ul li {
+            list-style: none;
+            width: 480px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+        }
+
+        .container ul li span {
+            margin-left: 10px;
+        }
+
+        .container ul li i {
+            font-style: normal;
+            margin-right: 30px;
+        }
+
+        .container ul li input {
+            margin-left: 30px;
+            background: #cb6083;
+        }
+
+        .container ul .act {}
+
+        .container ul li:nth-child(odd) {
+            background: rgba(0, 0, 0, .4);
+        }
+
+        .container ul li:nth-child(even) {
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .container ul li:hover {
+            background: #cb6083;
+        }
+
+        .container ul li.active {
+            background: #cb6083;
+
+        }
+
+        .bottomBox {
+            background: rgba(0, 0, 0, 1);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            width: 480px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .bottomBox input {
+            margin-left: 30px;
+        }
+
+        .bottomBox label {
+            margin-left: 10px;
+        }
+
+        .bottomBox i {
+            width: 24px;
+            height: 24px;
+            background-repeat: no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .bottomBox span {
+            display: inline-block;
+            margin-right: 40px;
+            vertical-align: bottom;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .collect-ico {
+            background: url(./img/收藏.png);
+        }
+
+        .del-ico {
+            background: url(./img/删除.png);
+        }
+
+        .add-ico {
+            background: url(./img/添加.png)
+        }
+    </style>
+</head>
+<script src="./vue.js"></script>
+
+<body>
+    <div class="container" id="app">
+        <div class="top-box"></div>
+        <ul>
+            <li v-for="item in singer" :class="{active:item.checked}" @click="item.checked=!item.checked">
+                <input class="" type="checkbox" autocomplete="off" v-model="item.checked">
+                <span class="">{{item.song}}</span>
+                <i class="fr">{{item.album}}</i>
+                <i class="fr">{{item.name}}</i>
+            </li>
+        </ul>
+        <div class="bottomBox">
+            <input type="checkbox" id="allCheck" autocomplete="off" v-model="allChecked" />
+            <label for="allCheck">全选</label>
+            <span class="fr">专辑{{allAlbum}}</span>
+            <span class="fr">歌手有{{singer.length}}位</span>
+            <span class="fr">已选择{{isChecked}}</span>
+        </div>
+    </div>
+    <script>
+        let data = [{
+                id: Date.now() + Math.random(),
+                name: '邓紫棋',
+                song: '泡沫',
+                checked: false,
+                album: 3
+            },
+            {
+                id: Date.now() + Math.random(),
+                name: '周杰棍',
+                song: '双杰伦',
+                checked: false,
+                album: 8
+            },
+            {
+                id: Date.now() + Math.random(),
+                name: 'MozLee',
+                song: '那一夜~',
+                checked: false,
+                album: 10
+            },
+            {
+                id: Date.now() + Math.random(),
+                name: 'MozLee',
+                song: '爱谁谁爱谁~',
+                checked: false,
+                album: 6
+            },
+            {
+                id: Date.now() + Math.random(),
+                name: 'MozLee',
+                song: '啥歌啊这么难听',
+                checked: false,
+                album: 3
+            },
+            {
+                id: Date.now() + Math.random(),
+                name: 'MozLee',
+                song: '那一夜~',
+                checked: false,
+                album: 2
+            }
+        ]
+        new Vue({
+            el: '#app',
+            data: {
+                singer: data,
+            },
+            computed: {
+                allAlbum() {
+                    let n = 0;
+                    this.singer.forEach(item => {
+                        n += item.album;
+                    });
+                    return n;
+                },
+                isChecked() {
+                    let arr = this.singer.filter(item => {
+                        return item.checked == true;
+                    })
+                    return arr.length;
+                },
+                allChecked: {
+                    set(newValue) {
+                        this.singer.forEach(item=>{
+                            item.checked = newValue;
+                        })
+                    },
+                    get() {
+                        let rel = this.singer.every(item=>{
+                        return item.checked == true;
+                    })
+                        return rel;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

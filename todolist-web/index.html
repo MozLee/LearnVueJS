@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>todos</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<script src="./vue.js"></script>
+
+<body>
+    <section class="todoapp" id="app">
+        <div>
+            <header class="header">
+                <h1>todos</h1>
+                <input class="new-todo" placeholder="请输入内容" @keyup.enter="newTodo" v-model='newValue'/>
+            </header>
+            <section class="main">
+                <input class="toggle-all" type="checkbox" />
+                <ul class="todo-list">
+                    <!-- <li class="completed editing">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" />
+                            <label>miaoweiketang</label>
+                            <button class="destroy"></button>
+                        </div>
+                        <input class="edit" />
+                    </li> -->
+                    <li :class="{completed:item.done,editing:item===editItem}" v-for="item,index in data" >
+                        <div class="view">
+                            <input class="toggle" type="checkbox" v-model="item.done" />
+                            <label v-on:dblclick="showInput(item,index)" >{{item.title}}</label>
+                            <button class="destroy" @click="delTodo(index)"></button>
+                        </div>
+                        <input class="edit" v-model ='editValue' v-on:keyup.enter="submitValue(item)"/>
+                    </li>
+                </ul>
+            </section>
+            <footer class="footer">
+                <span class="todo-count">
+                    <strong>{{undoNum}}</strong>
+                    <span>条未选中</span>
+                </span>
+                <ul class="filters">
+                    <li>
+                        <a href="#/all" class="selected">All</a>
+                    </li>
+                    <li>
+                        <a href="#/active" class="">Active</a>
+                    </li>
+                    <li>
+                        <a href="#/completed" class="">Completed</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+    </section>
+</body>
+<script>
+    /*
+    		1. 增删改查数据，要使用localStorage做数据持久化
+    		2. 根据hash不同，过滤渲染的数据
+    			a. 全部任务
+    			b. 完成的任务
+    			c. 未完成的任务
+    		3. 自己设计数据结构
+        */
+    let data = [{
+        title: '这是一条TODO信息1',
+        done: false,
+    }, {
+        title: '这是一条TODO信息2',
+        done: true,
+    }];
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            data,
+            newValue:'',
+            editValue:'',
+            editItem:'',
+        },
+        methods: {
+            newTodo(){
+                if(this.newValue.trim()==='') return
+                this.data.push({
+                    title:this.newValue,
+                    done: false,
+                })
+                this.newValue = ''
+            }
+            ,
+            delTodo(index) {
+                this.data.splice(index, 1);
+            },
+            showInput(obj,index){
+                this.editValue = obj.title;
+                this.editItem=obj;
+                this.$nextTick(() => {
+                    let editInputs = document.querySelectorAll('.edit');
+                    console.log(editInputs);
+                    editInputs[index].focus();  
+                }) 
+                
+            },
+            submitValue(obj){
+                obj.title = this.editValue;
+                this.editValue = '';  
+                this.editItem='';
+                       
+            }
+        },
+        computed: {
+            undoNum() {
+                return data.filter(item => !item.done).length;
+            }
+        }
+    });
+</script>
+
+</html>
