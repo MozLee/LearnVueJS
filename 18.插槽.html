@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <news>
+            <h1>{{user.title}}</h1>
+        </news>
+    </div>
+    <script>
+    Vue.component('news',{
+        template:`<div>
+                    <h2>你是谁？</h2>
+                    <slot>
+                        <ul>
+                            <li>我是你大爷~</li>
+                            <li>我是你大爷~</li>
+                            <li>我是你大爷~</li>
+                        </ul>
+                    </slot>
+                    <sonnews></sonnews>
+                  </div>
+        `,
+        components:{
+            sonnews:{
+                template:`<p>我是孙子组件</p>`
+            }
+        }
+    })
+    new Vue({
+        el:"#app",
+        data:{
+            user:{
+                title:'Mozlee'
+            }
+        }
+    })
+    </script>
+</body>
+</html>
