@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<link rel="stylesheet" type="text/css" href="./style.css">
+		<script src="../vue.js"></script>
+		<script type="text/x-template" id="modal">
+			<div class="modal">
+				<div class="modal-header">
+					<slot name="header" :title='title'>
+							<h4>{{title}}</h4>
+					</slot>
+				</div>
+				<div class="modal-content">
+					<div>
+						<slot name="content">Here is Content</slot>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<slot name='footter'>
+						<input class="btn" type="button" :value="okValue"  />
+						<input class="btn" type="button" :value="cancelValue" />
+					</slot>
+				</div>
+        	</div>
+		</script>
+	</head>
+
+	<body>
+		<div class="modal-example" id="app">
+			<div>确定</div>
+			<my-modal title="123" ok-value="确定" cancel-value ="上一层">
+				<template slot='header' slot-scope='{title}'>
+				 	<h1><span style="background: springgreen">绿不绿</span>{{title}}</h1>
+				</template>
+				<template slot = 'content'>
+					<ul>
+						<li>1</li>
+						<li>2</li>
+					</ul>
+				</template>
+			</my-modal>
+      	</div>
+		<script>
+			Vue.component('my-modal',{
+				template:'#modal',
+				props:{
+					title:{
+						type:String,
+						default:'This is a Default Title'
+					},
+					okValue:{
+						type:String,
+						default:"OK"
+					},
+					cancelValue:{
+						type:String,
+						default:'Cancel'
+					}
+				}
+			})
+			new Vue({
+				el:'#app',
+			})
+		</script>
+	</body>
+</html>
