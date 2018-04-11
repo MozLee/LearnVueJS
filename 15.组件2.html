@@ -17,19 +17,23 @@
     </div>
    </script>
    <div id="app">
-       <news :title="title"></news>
-       <hr>
-       <div>{{title}}</div>
+        <news :data2></news>
+        <hr>
+        <h2>{{data[0].title}}</h2>    
    </div>
    <script>
        Vue.component('news',{
            props:['title'],
            template:'#news',
        })
+       let da = [{
+           title:1
+       }]
        let vm = new Vue({
            el:'#app',
            data:{
-               title:'这是新闻',
+               data:da,
+               data2:da
            }
        })
    </script>

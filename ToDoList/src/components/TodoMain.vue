@@ -73,7 +73,8 @@
                 x.todo = this.chose
                    }); 
                 // this.$emit('update:todoList')
-            },check(item){
+            },
+            check(item){
                 item.todo=!item.todo;
                 if(this.todoList.every(x=>x.todo)){
                      this.chose=true;

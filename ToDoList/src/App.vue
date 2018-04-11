@@ -5,7 +5,10 @@
          <todoHeader :todoList.sync="todoData"/>
          <todo-main :todoList="activeData"/>
          <todoFooter :todoList="todoData" :activeData.sync='activeData'/>
-       </div>    
+       </div>
+       <hr>
+       父组件
+       <div v-for="item in todoData" :key="item.id">{{item.title}}</div>    
     </section>
   </div>
 </template>
@@ -46,7 +49,8 @@ export default {
         activeData:data,
         hash:'',
     }
-  }
+  },
+
 };
 </script>
 

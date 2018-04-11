@@ -60,10 +60,5 @@
 			}
 		}
 	}
-let hashkey = {
-		all:true,
-		active: true,
-    completed: true
-}
 
 </script>
