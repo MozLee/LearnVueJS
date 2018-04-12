@@ -1,15 +1,23 @@
 <template>
   <div id="app">
-    <shop-car></shop-car>
+    <img src="./assets/logo.png"  @click="$store.state.count++">
+    <HelloWorld/>
+    <h2>{{$store.state.count}}</h2>
   </div>
 </template>
 <script>
-import shopCar from './views/shopCar'
+import HelloWorld from "./components/add";
+import { getList } from "./server/index";
 export default {
   name: "App",
   components: {
-    shopCar
-  } 
+    HelloWorld
+  },
+  created() {
+    getList().then((data) => {
+      console.log(data);
+    })
+  }
 };
 </script>
 
