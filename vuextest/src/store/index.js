@@ -17,10 +17,8 @@ let store = new Vuex.Store({
   },
   mutations: {
     changeList(state, newdata) {
-      // console.log(newdata);
       state.shopList = newdata;
       state.listLoading = !state.listLoading;
-      // console.log(state.shopList);
     },
     changeRecommendList(state, newdata) {
       state.recommendList = newdata;
