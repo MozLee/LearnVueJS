@@ -1,17 +1,17 @@
 <template>
   <div class="shop-cart">
-    <div style="text-align:center;">
+    <div v-if="$store.state.loading" style="text-align:center;">
       <img src="@/assets/timg.gif" >
     </div>
-    <div class="content">
-      <div class="cart-empty" id="J_cartEmpty">
+    <div class="content" v-if="!$store.state.loading">
+      <div v-show="!$store.state.havaValue" class="cart-empty" id="J_cartEmpty">
           <h2>您的购物车还是空的！</h2>
           <a href="" class="btn btn-primary btn-shoping J_goShoping">马上去购物</a>
       </div>
-      <div class="cart-goods-list">
+      <div class="cart-goods-list" v-show="$store.state.havaValue">
         <!--购物车表头-->
         <div class="list-head clearfix">
-            <div class="col col-check"><i class="iconfont icon-checkbox icon-checkbox-selected">√</i>全选</div>
+            <div class="col col-check"><i class="iconfont icon-checkbox" :class="{'icon-checkbox-selected':$store.getters.isCheckAll}" @click="checkAll">√</i>全选</div>
             <div class="col col-img">&nbsp;</div>
             <div class="col col-name">商品名称</div>
             <div class="col col-price">单价</div>
@@ -21,11 +21,11 @@
         </div>
         <!--购物车展示商品信息-->
         <div class="list-body">
-          <!-- <shop-item-box></shop-item-box> -->
+          <shop-item-box v-for="item in shopList" :key="item.skuid" :info="item"></shop-item-box>
         </div>
       </div>
       <!--计算价钱的信息-->
-      <shop-info></shop-info>
+      <shop-info v-show="$store.state.havaValue"></shop-info>
     </div>
     <recommend></recommend>
   </div>
@@ -34,12 +34,26 @@
 import ShopItemBox from './shopItemBox'
 import ShopInfo from './shopInfo'
 import recommend from './recommend'
-
 export default {
   components: {
     ShopItemBox,
     ShopInfo,
     recommend
+  },
+  created(){
+    this.$store.dispatch('getListsAction')
+  },
+  computed:{
+      shopList(){
+        return this.$store.state.shopCarList;
+      }
+  },
+  methods:{
+    checkAll(){
+        this.$store.commit('checkedAll',{
+          check:!this.$store.getters.isCheckAll,
+        })
+    }
   }
 }
 </script>

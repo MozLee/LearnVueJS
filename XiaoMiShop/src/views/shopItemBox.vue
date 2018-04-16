@@ -4,12 +4,12 @@
       <div class="item-row">
         <!--左侧单选框-->
         <div class="col col-check">  
-          <i class="iconfont icon-checkbox icon-checkbox-selected" >√</i> 
+          <i class="iconfont icon-checkbox " :class="{'icon-checkbox-selected':info.checked}" @click="check(info)">√</i> 
         </div>
         <!--商品图片展示-->
         <div class="col col-img">  
           <a href="//item.mi.com/1161800009.html" target="_blank"> 
-            <img alt="" src="https://i1.mifile.cn/a1/T1SkV_BCd_1RXrhCrK!80x80.jpg" width="80" height="80"> 
+            <img alt="" :src="info.image" width="80" height="80"> 
           </a> 
         </div>
 
@@ -18,28 +18,28 @@
           <div class="tags">   
           </div>
           <h3 class="name">  
-            <a href="//item.mi.com/1161800009.html" target="_blank"> 胶囊耳机 黑色 </a>  
+            <a href="//item.mi.com/1161800009.html" target="_blank">{{info.title}}</a>  
           </h3>      
         </div>
         <!--商品单价-->
-        <div class="col col-price"> 59元 </div>
+        <div class="col col-price">{{info.price}}</div>
         <!--商品数量-->
         <div class="col col-num">  
           <div class="change-goods-num clearfix J_changeGoodsNum"> 
-            <a href="javascript:void(0)" class="J_minus">
+            <a href="javascript:void(0)" class="J_minus" @click="subNum(info)">
               <i class="iconfont"></i>
             </a> 
-            <input tyep="text"  value="5"  autocomplete="off" class="goods-num J_goodsNum" />
-            <a href="javascript:void(0)" class="J_plus">
+            <input tyep="text"  value="5"  autocomplete="off" class="goods-num J_goodsNum" v-model="info.buyNumber"/>
+            <a href="javascript:void(0)" class="J_plus" @click="addNum(info)">
               <i class="iconfont"></i>
             </a>   
           </div>  
         </div>
         <!--小计-->
-        <div class="col col-total"> 295元 <p class="pre-info">  </p> </div>
+        <div class="col col-total">{{info.price*info.buyNumber}}<p class="pre-info">  </p> </div>
         <!--操作-->
         <div class="col col-action"> 
-          <a href="javascript:void(0);" title="删除" class="del">
+          <a href="javascript:void(0);" @click="delShop(info)" title="删除" class="del">
             <i class="iconfont"></i>
           </a> 
         </div>
@@ -47,6 +47,41 @@
     </div>
   </div>
 </template>
+<script>
+  export default {
+    props:{
+      info:{
+        type:Object,
+        default(){
+          return {}
+        }
+      }
+    },
+    methods:{
+      check(info){
+        this.$store.commit('setCheck',{
+          item:info,
+          check:!this.info.checked,
+        })
+      },
+      addNum(info){
+        this.$store.commit('addNum',{
+          item:info
+        })
+      },
+      subNum(info){
+        this.$store.commit('subNum',{
+          item:info
+        })
+      },
+      delShop(info){
+        this.$store.commit('delShop',{
+          item:info
+        })
+      }
+    }
+  }
+</script>
 <style scoped>
  .item-box {
     padding: 15px 26px 15px 0;

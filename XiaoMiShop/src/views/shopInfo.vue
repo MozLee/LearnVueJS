@@ -5,21 +5,39 @@
           继续购物
         </a>
         <span class="cart-total">
-          共 <i>10</i> 件商品，已选择 <i>10</i> 件
+          共 <i>{{$store.state.shopCarList.length}}</i> 件商品，已选择 <i>{{checkNum}}</i> 件
         </span>
     </div>
     <span class="total-price">
-        合计：<em>10636</em>元
+        合计：<em>{{totalPrice}}</em>元
     </span>
     <a href="javascript:void(0);" class="btn btn-a btn btn-primary">去结算</a>
-    <div class="no-select-tip hide">
+    <div class="hide" :class="{'no-select-tip':!$store.getters.oneCheck}">
         请勾选需要结算的商品
         <i class="arrow arrow-a"></i>
         <i class="arrow arrow-b"></i>
     </div>
 </div>
 </template>
-
+<script>
+    export default{
+        computed:{
+            checkNum(){
+                return this.$store.state.shopCarList.filter((x) => {
+                    return x.checked;
+                }).length
+            },
+            totalPrice(){
+                let total = 0;
+                this.$store.state.shopCarList.forEach(x => {
+                    total+= x.price*x.buyNumber;
+                });
+                console.log(total);
+                return total
+            }
+        }
+    }
+</script>
 <style scoped>
   /*计算价钱的信息*/
 
