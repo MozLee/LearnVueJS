@@ -1,23 +1,16 @@
 <template>
   <div id="app">
-    <button @click="addNewData">添加数据</button>
-    <shop-car ></shop-car>
+    <router-link to='/'>首页</router-link>
+    <router-link to='/about'>关于</router-link>
+    <router-link to='/about/MozLee'>MozLee</router-link>
+    <router-link to='/about/Lixin'>Lixin</router-link>
+    <router-view/>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld'
-import shopCar from './views/shopCar'
 export default {
-  name: 'App',
-  components: {
-    shopCar,
-  },
-  methods:{
-    addNewData(){
-      this.$store.commit('addData');
-    }
-  }
+  name: 'App'
 }
 </script>
 

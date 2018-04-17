@@ -76,6 +76,17 @@ let store = new Vuex.Store({
         state.shopCarList.forEach(x => x.checked = false)
 
       }
+    },
+    addData(state){
+      state.shopCarList.push({
+        skuId: "215400012",
+        title: "小米6 全网通版 4GB内存 亮蓝色123",
+        image: "https://i1.mifile.cn/f/i/g/2015/cn-index/mix2320-220.png",
+        price: "200",
+        buyNumber: 3,
+        buylimit: 10,
+        checked:true
+      })
     }
   },
   actions: {
