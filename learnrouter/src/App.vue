@@ -36,6 +36,10 @@ export default {
 </script>
 
 <style>
+.router-link-exact-active{
+	background: #ea6f5a;
+    color: #fff; 
+}
 body,ul,li {
 	margin: 0;
 	padding:0;

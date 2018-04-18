@@ -1,7 +1,7 @@
 <template>
   	<div class="header-box">
 				<ul class="nav-list">
-					<li class="select">
+					<li>
                         <router-link :to="{name:'Faxian'}">发现</router-link>
 					</li>
 					<li>
